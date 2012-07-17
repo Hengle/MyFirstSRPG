@@ -1,0 +1,19 @@
+﻿ATK Speed = SPD - Weapon Weight
+HP Staff DoubleCast Rate = ((SPD+SKL+LUK)/2)%
+Chase Attack: SPD > opposite SPD
+Re-Action Rate = (Move Stars * 5)%
+PHY ATK = STR + (Weapon Power * Effective Bonus)
+PHY DEF = DEF + Terrain Bonus
+MAG ATK = MGC + (Weapon Power * Effective Bonus)
+MAG DEF = MGC + Terrain Bonus
+Battle Damage = PHY ATK * CRI Bonus - opposite PHY DEF
+			 MAG ATK * CRI Bonus - opposite MAG DEF
+
+Accuracy = Weapon Hit + SKL * 2 + LUK + Support Bonus + Leadership Bonus + Charisma Bonus + Weapon Triangle Bonus
+Avoid = ATK Speed * 2 + LUK + Support Bonus + Leadership Bonus + Charisma Bonus + Terrain Bonus
+Battle Accuracy = (Accuracy - opposite Avoid)%  [1~99]
+Staff Accuracy = (60 + SKL * 4)% [60~99]
+
+CRI = Weapon CRI + SKL + Support Bonus
+CRI evade = (LUK / 2) + Support Bonus
+Battle CRI = (CRI - opposite CRI evade) * 

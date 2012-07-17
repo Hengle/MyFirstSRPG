@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{FF0B639E-4F4F-473E-9047-F367015A80F2}</ProjectGuid>
+    <ProjectTypeGuids>{96E2B04D-8817-42c6-938A-82C39BA4D311};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
+    <OutputPath>bin\$(Platform)\$(Configuration)</OutputPath>
+    <ContentRootDirectory>Content</ContentRootDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>SRPGGameContent</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.EffectImporter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.FBXImporter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.TextureImporter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.XImporter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.AudioImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\ActorClass.csv">
+      <Name>ActorClass</Name>
+      <Importer>PlainTextImporter</Importer>
+      <Processor>ActorClassProcessor</Processor>
+    </Compile>
+    <Compile Include="Data\ActorPerk.csv">
+      <Name>ActorPerk</Name>
+      <Importer>PlainTextImporter</Importer>
+      <Processor>ActorPerkProcessor</Processor>
+    </Compile>
+    <Compile Include="Data\Weapon.csv">
+      <Name>Weapon</Name>
+      <Importer>PlainTextImporter</Importer>
+      <Processor>WeaponProcessor</Processor>
+    </Compile>
+    <Compile Include="Texture\Act01.png">
+      <Name>Act01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>ActorTextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Texture\Sys01.png">
+      <Name>Sys01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Texture\Map01.png">
+      <Name>Map01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Font\Normal.spritefont">
+      <Name>Normal</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>LocalizedFontProcessor</Processor>
+      <SubType>Designer</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SRPGGameContentPipeline\MyFirstSRPG.SRPGGameContentPipeline.csproj">
+      <Project>{CB257664-88D4-45EA-96C0-3BF21C135701}</Project>
+      <Name>MyFirstSRPG.SRPGGameContentPipeline</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Texture\ActM01.png">
+      <Name>ActM01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>ActorTextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\Cur01.wav">
+      <Name>Cur01</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\Sys01.wav">
+      <Name>Sys01</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\Sys02.wav">
+      <Name>Sys02</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\Sys03.wav">
+      <Name>Sys03</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\Sys04.wav">
+      <Name>Sys04</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\Cbt01.wav">
+      <Name>Cbt01</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\Mov01.wav">
+      <Name>Mov01</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\Mov02.wav">
+      <Name>Mov02</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\Mov03.wav">
+      <Name>Mov03</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\Mov04.wav">
+      <Name>Mov04</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="SFX\Mov05.wav">
+      <Name>Mov05</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SFX\Cbt02.wav">
+      <Name>Cbt02</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Texture\GameIntroScreen.png">
+      <Name>GameIntroScreen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Texture\GameTitleScreen.png">
+      <Name>GameTitleScreen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\ActorClass.xlsx">
+      <Name>ActorClass</Name>
+      <Processor>PassThroughProcessor</Processor>
+    </None>
+    <Compile Include="Font\Small.spritefont">
+      <Name>Small</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>LocalizedFontProcessor</Processor>
+      <SubType>Designer</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Txt\Scene01.txt">
+      <Name>Scene01</Name>
+      <Importer>PlainTextImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </None>
+    <Compile Include="Txt\SysText.txt">
+      <Name>SysText</Name>
+      <Importer>PlainTextImporter</Importer>
+      <Processor>SysTextProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Texture\Face01.png">
+      <Name>Face01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Texture\Frame01.png">
+      <Name>Frame01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="Data\ActorPerk.xlsx">
+      <Name>ActorPerk</Name>
+      <Processor>PassThroughProcessor</Processor>
+    </None>
+    <None Include="Data\Weapon.xlsx">
+      <Name>Weapon</Name>
+      <Processor>PassThroughProcessor</Processor>
+    </None>
+    <None Include="Font\Font01.txt">
+      <Name>Font01</Name>
+      <Importer>PlainTextImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </None>
+    <Compile Include="Font\Font01.png">
+      <Name>Font01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>LocalizedFontTextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Font\Font03.png">
+      <Name>Font03</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>DigitFontTextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Texture\Icon01.png">
+      <Name>Icon01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="Txt\Terrain.txt">
+      <Name>Terrain</Name>
+      <Importer>PlainTextImporter</Importer>
+      <Processor>SysTextProcessor</Processor>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Texture\Font.png">
+      <Name>Font</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
+  <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
