@@ -5,6 +5,7 @@ using System.Text;
 using MyFirstSRPG.SRPGGameLibrary;
 using MyFirstSRPG.SRPGGame.GameScreens.SceneScreens;
 using Microsoft.Xna.Framework;
+using MyFirstSRPG.SRPGGame.Actions;
 
 namespace MyFirstSRPG.SRPGGame
 {
@@ -91,7 +92,7 @@ namespace MyFirstSRPG.SRPGGame
 				this.Scene.ChangePhase(TurnPhase.EventPhase);
 
 				List<SceneActor> enemies = new List<SceneActor>();
-				var boss1 = new AIActor(new Actor(9, 16, 5, "雷多利克"))
+				var boss1 = new AIActor(9, "雷多利克", 16, 5, Point.Zero)
 				{
 					Faction = Faction.Enemy,
 					MapPoint = new Point(2, 18),
@@ -99,7 +100,7 @@ namespace MyFirstSRPG.SRPGGame
 					TargetMapPoint = new Point(20, 1),
 					Visible = true
 				};
-				var boss2 = new AIActor(new Actor(10, 11, 5, "瓦兹曼"))
+				var boss2 = new AIActor(10, "瓦兹曼", 11, 5, Point.Zero)
 				{
 					Faction = Faction.Enemy,
 					MapPoint = new Point(1, 18),
@@ -107,7 +108,7 @@ namespace MyFirstSRPG.SRPGGame
 					TargetActor = boss1,
 					Visible = true
 				};
-				var guard = new AIActor(new Actor(11, 54, 1, "曼斯塔兵"))
+				var guard = new AIActor(11, "曼斯塔兵", 54, 1, Point.Zero)
 				{
 					Faction = Faction.Enemy,
 					MapPoint = new Point(3, 18),
@@ -116,12 +117,11 @@ namespace MyFirstSRPG.SRPGGame
 					Visible = true
 				};
 
-				this.Scene.AddActionLoadActor(boss1);
-				this.Scene.AddActionLoadActor(boss2);
-				this.Scene.AddActionLoadActor(guard);
-
-				this.Scene.AddActionPause(1000d);
-				this.Scene.AddDelayAction(() => this.Scene.ChangePhase(TurnPhase.EnemyPhase));
+				this.Scene.AddAction(new ActorLoadAction(this.Scene, boss1));
+				this.Scene.AddAction(new ActorLoadAction(this.Scene, boss2));
+				this.Scene.AddAction(new ActorLoadAction(this.Scene, guard));
+				this.Scene.AddAction(new PauseAction(TimeSpan.FromSeconds(1d)));
+				this.Scene.AddAction(new PhaseChangeAction(this.Scene, TurnPhase.EnemyPhase));
 			}
 		}
 	}

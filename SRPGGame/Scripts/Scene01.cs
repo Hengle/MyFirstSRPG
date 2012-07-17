@@ -5,6 +5,7 @@ using System.Text;
 using MyFirstSRPG.SRPGGameLibrary;
 using MyFirstSRPG.SRPGGame.GameScreens.SceneScreens;
 using Microsoft.Xna.Framework;
+using MyFirstSRPG.SRPGGame.Actions;
 
 namespace MyFirstSRPG.SRPGGame
 {
@@ -93,94 +94,121 @@ namespace MyFirstSRPG.SRPGGame
 				#region Ememy appears
 
 				List<SceneActor> enemies = new List<SceneActor>();
-				var boss1 = new SceneActor(new Actor(9, 16, 5, "雷多利克"), new Point(96, 384)) { Faction = Faction.Enemy, MapPoint = new Point(17, 6) };
-				var boss2 = new SceneActor(new Actor(10, 11, 5, 0, "瓦兹曼", 0, 0, 0, 0, 0, 0, 0, 0, null), new Point(288, 384)) { Faction = Faction.Enemy, MapPoint = new Point(17, 5) };
+				var boss1 = new SceneActor(9, "雷多利克", 16, 5, new Point(96, 384)) { Faction = Faction.Enemy, MapPoint = new Point(17, 6) };
+				var boss2 = new SceneActor(10, "瓦兹曼", 11, 5, new Point(288, 384)) { Faction = Faction.Enemy, MapPoint = new Point(17, 5) };
 				enemies.Add(boss1);
 				enemies.Add(boss2);
-				enemies.Add(new SceneActor(new Actor(11, 54, 1, 0, "曼斯塔兵", 0, 0, 0, 0, 0, 0, 0, 0, null), new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(8, 5) });
-				enemies.Add(new SceneActor(new Actor(12, 54, 1, 0, "曼斯塔兵", 0, 0, 0, 0, 0, 0, 0, 0, null), new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(12, 6) });
-				enemies.Add(new SceneActor(new Actor(13, 54, 1, 0, "曼斯塔兵", 0, 0, 0, 0, 0, 0, 0, 0, null), new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(10, 8) });
-				enemies.Add(new SceneActor(new Actor(14, 54, 1, 0, "曼斯塔兵", 0, 0, 0, 0, 0, 0, 0, 0, null), new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(13, 10) });
-				enemies.Add(new SceneActor(new Actor(15, 54, 1, 0, "曼斯塔兵", 0, 0, 0, 0, 0, 0, 0, 0, null), new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(18, 10) });
-				enemies.Add(new SceneActor(new Actor(16, 54, 1, 0, "曼斯塔兵", 0, 0, 0, 0, 0, 0, 0, 0, null), new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(17, 8) });
-				enemies.Add(new SceneActor(new Actor(17, 54, 1, 0, "曼斯塔兵", 0, 0, 0, 0, 0, 0, 0, 0, null), new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(10, 12) });
-				enemies.Add(new SceneActor(new Actor(18, 54, 1, 0, "曼斯塔兵", 0, 0, 0, 0, 0, 0, 0, 0, null), new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(15, 12) });
-				enemies.Add(new SceneActor(new Actor(19, 54, 1, 0, "曼斯塔兵", 0, 0, 0, 0, 0, 0, 0, 0, null), new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(8, 14) });
-				enemies.Add(new SceneActor(new Actor(20, 54, 1, 0, "曼斯塔兵", 0, 0, 0, 0, 0, 0, 0, 0, null), new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(18, 13) });
-				enemies.Add(new SceneActor(new Actor(21, 55, 1, 0, "曼斯塔兵", 0, 0, 0, 0, 0, 0, 0, 0, null), new Point(48, 576)) { Faction = Faction.Enemy, MapPoint = new Point(16, 8) });
-				enemies.Add(new SceneActor(new Actor(22, 55, 1, 0, "曼斯塔兵", 0, 0, 0, 0, 0, 0, 0, 0, null), new Point(48, 576)) { Faction = Faction.Enemy, MapPoint = new Point(9, 10) });
-				enemies.Add(new SceneActor(new Actor(23, 55, 1, 0, "曼斯塔兵", 0, 0, 0, 0, 0, 0, 0, 0, null), new Point(48, 576)) { Faction = Faction.Enemy, MapPoint = new Point(11, 12) });
+				enemies.Add(new SceneActor(11, "曼斯塔兵", 54, 1, new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(8, 5) });
+				enemies.Add(new SceneActor(12, "曼斯塔兵", 54, 1, new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(12, 6) });
+				enemies.Add(new SceneActor(13, "曼斯塔兵", 54, 1, new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(10, 8) });
+				enemies.Add(new SceneActor(14, "曼斯塔兵", 54, 1, new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(13, 10) });
+				enemies.Add(new SceneActor(15, "曼斯塔兵", 54, 1, new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(18, 10) });
+				enemies.Add(new SceneActor(16, "曼斯塔兵", 54, 1, new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(17, 8) });
+				enemies.Add(new SceneActor(17, "曼斯塔兵", 54, 1, new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(10, 12) });
+				enemies.Add(new SceneActor(18, "曼斯塔兵", 54, 1, new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(15, 12) });
+				enemies.Add(new SceneActor(19, "曼斯塔兵", 54, 1, new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(8, 14) });
+				enemies.Add(new SceneActor(20, "曼斯塔兵", 54, 1, new Point(0, 576)) { Faction = Faction.Enemy, MapPoint = new Point(18, 13) });
+				enemies.Add(new SceneActor(21, "曼斯塔兵", 55, 1, new Point(48, 576)) { Faction = Faction.Enemy, MapPoint = new Point(16, 8) });
+				enemies.Add(new SceneActor(22, "曼斯塔兵", 55, 1, new Point(48, 576)) { Faction = Faction.Enemy, MapPoint = new Point(9, 10) });
+				enemies.Add(new SceneActor(23, "曼斯塔兵", 55, 1, new Point(48, 576)) { Faction = Faction.Enemy, MapPoint = new Point(11, 12) });
 
 				foreach (var enemy in enemies)
 				{
 					enemy.Visible = true;
-					this.Scene.AddActionLoadActor(enemy);
+					this.Scene.AddAction(new ActorLoadAction(this.Scene, enemy));
 				}
 
 				#endregion Ememy appears
 
 				#region dialog test
 
-				//SceneActor mareeta = new SceneActor(new Actor(6, 60, 7, "玛莉塔"), new Point(264, 64));
-				//SceneActor nanna = new SceneActor(new Actor(7, 60, 7, "南娜"), new Point(144, 0));
+				SceneActor mareeta = new SceneActor(6, "玛莉塔", 60, 7, new Point(264, 64));
+				SceneActor nanna = new SceneActor(7, "南娜", 60, 7, new Point(144, 0));
+				List<ActorSpeech> speeches = new List<ActorSpeech>();
+				speeches.Add(new ActorSpeech(boss1, "怎么样，发现了王子吗？", true));
+				speeches.Add(new ActorSpeech(boss2, "没有，在村子里仔细搜查过了，可是仍旧没有发现。", false));
+				speeches.Add(new ActorSpeech(boss1, "蠢货，在那里慢吞吞的干什么？兰斯特王国的余孽躲藏在这个村子里是绝对错不了的。把村民们关上的房间统统打开搜。", true));
+				speeches.Add(new ActorSpeech(boss2, "是，绝对遵照您的意思去做！可是，不论怎么搜，他不在这个村子里是事实呀。村民说王子一行人与菲亚那义勇军一道去救助被海盗骚扰的村子去了。", false));
+				speeches.Add(new ActorSpeech(boss1, "菲亚那义勇军？那是什么？", true));
+				speeches.Add(new ActorSpeech(boss2, "这个村子现在是山贼的老窝。在十几年以前，有个叫艾维尔的流浪佣兵铲平了山贼，成为了新的统治者。现在听说被叫做义勇军，保护这附近的村子。不管怎样，是个相当厉害的女子…… 唔……这可有点麻烦呀！", false));
+				speeches.Add(new ActorSpeech(boss2, "请不必担心。艾维尔的女儿已经被抓住，成了人质。而且王子的护卫、骑士菲恩的女儿也被抓住了。这样的话，这些家伙们大概无法反抗了吧。", false));
+				speeches.Add(new ActorSpeech(boss1, "唔……你做得很不错嘛！好，我就把姑娘们一同带回曼斯塔了。你留在村子里，等待逆贼回来。王子如果回来的话，务必要将其抓住！", true));
+				speeches.Add(new ActorSpeech(boss2, "是，请放心的交给我去作吧！来人！把姑娘们带到这儿来！", false));
+				speeches.Add(new ActorSpeech(mareeta, string.Empty, false, 2f));
+				speeches.Add(new ActorSpeech(boss1, "姑娘，叫什么名字？", true));
+				speeches.Add(new ActorSpeech(mareeta, "哼……", false, 2f));
+				speeches.Add(new ActorSpeech(nanna, string.Empty, false, 2f));
+				speeches.Add(new ActorSpeech(boss1, "唔。顽固的样子也很可爱啊！那，另一个人呢……哦，你是菲恩的女儿吧？母亲好像是诺迪翁公国的公主吧！到底是正宗的血统啊！在这样的边境中生活着，仍旧没有失去高贵的气质啊！", true));
+				speeches.Add(new ActorSpeech(nanna, "……", false, 2f));
+				speeches.Add(new ActorSpeech(boss2, string.Empty, false, 2f));
+				speeches.Add(new ActorSpeech(boss1, "唔，这倒是成了没有想到的好礼物啊！嗯，准备返回曼斯塔城了！瓦兹曼，后面的就交给你了！", true));
+				speeches.Add(new ActorSpeech(boss2, "是。", false));
 
-				//this.Scene.AddActionSpeech(boss1, "怎么样，发现了王子吗？", true);
-				//this.Scene.AddActionSpeech(boss2, "没有，在村子里仔细搜查过了，可是仍旧没有发现。", false);
-				//this.Scene.AddActionSpeech(boss1, "蠢货，在那里慢吞吞的干什么？兰斯特王国的余孽躲藏在这个村子里是绝对错不了的。把村民们关上的房间统统打开搜。", true);
-				//this.Scene.AddActionSpeech(boss2, "是，绝对遵照您的意思去做！可是，不论怎么搜，他不在这个村子里是事实呀。村民说王子一行人与菲亚那义勇军一道去救助被海盗骚扰的村子去了。", false);
-				//this.Scene.AddActionSpeech(boss1, "菲亚那义勇军？那是什么？", true);
-				//this.Scene.AddActionSpeech(boss2, "这个村子现在是山贼的老窝。在十几年以前，有个叫艾维尔的流浪佣兵铲平了山贼，成为了新的统治者。现在听说被叫做义勇军，保护这附近的村子。不管怎样，是个相当厉害的女子…… 唔……这可有点麻烦呀！", false);
-				//this.Scene.AddActionSpeech(boss2, "请不必担心。艾维尔的女儿已经被抓住，成了人质。而且王子的护卫、骑士菲恩的女儿也被抓住了。这样的话，这些家伙们大概无法反抗了吧。", false);
-				//this.Scene.AddActionSpeech(boss1, "唔……你做得很不错嘛！好，我就把姑娘们一同带回曼斯塔了。你留在村子里，等待逆贼回来。王子如果回来的话，务必要将其抓住！", true);
-				//this.Scene.AddActionSpeech(boss2, "是，请放心的交给我去作吧！来人！把姑娘们带到这儿来！", false);
-				//this.Scene.AddActionSpeech(mareeta, string.Empty, false, 2f);
-				//this.Scene.AddActionSpeech(boss1, "姑娘，叫什么名字？", true);
-				//this.Scene.AddActionSpeech(mareeta, "哼……", false, 2f);
-				//this.Scene.AddActionSpeech(nanna, string.Empty, false, 2f);
-				//this.Scene.AddActionSpeech(boss1, "唔。顽固的样子也很可爱啊！那，另一个人呢……哦，你是菲恩的女儿吧？母亲好像是诺迪翁公国的公主吧！到底是正宗的血统啊！在这样的边境中生活着，仍旧没有失去高贵的气质啊！", true);
-				//this.Scene.AddActionSpeech(nanna, "……", false, 2f);
-				//this.Scene.AddActionSpeech(boss2, string.Empty, false, 2f);
-				//this.Scene.AddActionSpeech(boss1, "唔，这倒是成了没有想到的好礼物啊！嗯，准备返回曼斯塔城了！瓦兹曼，后面的就交给你了！", true);
-				//this.Scene.AddActionSpeech(boss2, "是。", false);
+				this.Scene.StartDialogue(speeches);
 
 				#endregion dialog test
 
 				#region Player appears
 
-				SceneActor leaf = new SceneActor(new Actor(1, 1, 1, 0, "利夫", 4, 0, 0, 0, 1, 4, 0, 0, new int[] { 2 }), new Point(0, 0)) { Faction = Faction.Player, MapPoint = new Point(0, 20) };
+				SceneActor leaf = new SceneActor(1, "利夫", 1, 1, 0, 4, 0, 0, 0, 1, 4, 0, 0, new int[] { 2 }, new Point(0, 0))
+				{
+					Faction = Faction.Player,
+					MapPoint = new Point(0, 20)
+				};
 				leaf.Growth = new ActorAttributes(70, 35, 10, 35, 40, 40, 25, 15);
 				leaf.Items.Add(Weapon.Weapons[1]);
-				this.Scene.AddActionLoadActor(leaf);
-				this.Scene.AddActionMoveActor(leaf, new Point(3, 16), 200);
+				this.Scene.AddAction(new ActorLoadAction(this.Scene, leaf));
+				this.Scene.AddAction(new PauseAction(TimeSpan.FromMilliseconds(200d)));
+				this.Scene.AddAction(new ActorMoveAction(this.Scene, leaf, new Point(3, 16)));
 
-				SceneActor fin = new SceneActor(new Actor(5, 60, 7, 0, "菲恩", 8, 5, 1, 5, 7, 5, 4, 2, new int[] { 11 }), new Point(96, 0)) { Faction = Faction.Player, MapPoint = new Point(0, 20) };
+				SceneActor fin = new SceneActor(5, "菲恩", 60, 7, 0, 8, 5, 1, 5, 7, 5, 4, 2, new int[] { 11 }, new Point(96, 0))
+				{
+					Faction = Faction.Player,
+					MapPoint = new Point(0, 20)
+				};
 				fin.Growth = new ActorAttributes(60, 35, 5, 30, 35, 45, 30, 10);
 				fin.Items.Add(Weapon.Weapons[2]);
-				this.Scene.AddActionLoadActor(fin);
-				this.Scene.AddActionMoveActor(fin, new Point(2, 16), 200);
+				this.Scene.AddAction(new ActorLoadAction(this.Scene, fin));
+				this.Scene.AddAction(new PauseAction(TimeSpan.FromMilliseconds(200d)));
+				this.Scene.AddAction(new ActorMoveAction(this.Scene, fin, new Point(2, 16)));
 
-				SceneActor eyvel = new SceneActor(new Actor(4, 51, 12, 0, "艾维尔", 8, 5, 3, 10, 10, 10, 3, 3, new int[] { 2 }), new Point(192, 64)) { Faction = Faction.Player, MapPoint = new Point(0, 20) };
+				SceneActor eyvel = new SceneActor(4, "艾维尔", 51, 12, 0, 8, 5, 3, 10, 10, 10, 3, 3, new int[] { 2 }, new Point(192, 64))
+				{
+					Faction = Faction.Player,
+					MapPoint = new Point(0, 20)
+				};
 				eyvel.Growth = new ActorAttributes(30, 15, 10, 15, 10, 25, 5, 5);
 				eyvel.Items.Add(Weapon.Weapons[1]);
-				this.Scene.AddActionLoadActor(eyvel);
-				this.Scene.AddActionMoveActor(eyvel, new Point(3, 15), 500);
+				this.Scene.AddAction(new ActorLoadAction(this.Scene, eyvel));
+				this.Scene.AddAction(new PauseAction(TimeSpan.FromMilliseconds(500d)));
+				this.Scene.AddAction(new ActorMoveAction(this.Scene, eyvel, new Point(3, 15)));
 
-				SceneActor othin = new SceneActor(new Actor(2, 48, 1, 0, "奥辛", 7, 2, 0, 3, 4, 3, 2, 3, new int[] { 12 }), new Point(480, 64)) { Faction = Faction.Player, MapPoint = new Point(0, 20) };
+				SceneActor othin = new SceneActor(2, "奥辛", 48, 1, 0, 7, 2, 0, 3, 4, 3, 2, 3, new int[] { 12 }, new Point(480, 64))
+				{
+					Faction = Faction.Player,
+					MapPoint = new Point(0, 20)
+				};
 				othin.Growth = new ActorAttributes(85, 30, 5, 25, 35, 55, 25, 25);
 				othin.Items.Add(Weapon.Weapons[3]);
-				this.Scene.AddActionLoadActor(othin);
-				this.Scene.AddActionMoveActor(othin, new Point(4, 15), 200);
+				this.Scene.AddAction(new ActorLoadAction(this.Scene, othin));
+				this.Scene.AddAction(new PauseAction(TimeSpan.FromMilliseconds(200d)));
+				this.Scene.AddAction(new ActorMoveAction(this.Scene, othin, new Point(4, 15)));
 
-				SceneActor halvan = new SceneActor(new Actor(3, 48, 2, 0, "哈鲁巴恩", 8, 3, 0, 3, 2, 2, 3, 4, new int[] { 4 }), new Point(432, 64)) { Faction = Faction.Player, MapPoint = new Point(0, 20) };
+				SceneActor halvan = new SceneActor(3, "哈鲁巴恩", 48, 2, 0, 8, 3, 0, 3, 2, 2, 3, 4, new int[] { 4 }, new Point(432, 64))
+				{
+					Faction = Faction.Player,
+					MapPoint = new Point(0, 20)
+				};
 				halvan.Growth = new ActorAttributes(80, 40, 5, 20, 30, 30, 30, 30);
 				halvan.Items.Add(Weapon.Weapons[3]);
-				this.Scene.AddActionLoadActor(halvan);
-				this.Scene.AddActionMoveActor(halvan, new Point(2, 15), 200);
+				this.Scene.AddAction(new ActorLoadAction(this.Scene, halvan));
+				this.Scene.AddAction(new PauseAction(TimeSpan.FromMilliseconds(200d)));
+				this.Scene.AddAction(new ActorMoveAction(this.Scene, halvan, new Point(2, 15)));
 
 				#endregion Player appears
 
-				this.Scene.AddActionPause(1000d);
-				this.Scene.AddDelayAction(() => this.Scene.ChangePhase(TurnPhase.PlayerPhase));
+				this.Scene.AddAction(new PauseAction(TimeSpan.FromSeconds(1d)));
+				this.Scene.AddAction(new PhaseChangeAction(this.Scene, TurnPhase.PlayerPhase));
 
 				#region riders invasion test
 

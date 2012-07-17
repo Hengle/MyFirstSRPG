@@ -52,7 +52,6 @@
   </PropertyGroup>
   <ItemGroup />
   <ItemGroup>
-    <Compile Include="Actor.cs" />
     <Compile Include="ActorAttributes.cs" />
     <Compile Include="ActorClass.cs" />
     <Compile Include="ActorPerk.cs" />

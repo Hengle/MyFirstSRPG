@@ -56,8 +56,7 @@ namespace MyFirstSRPG.SRPGGame.Components.MapScreenLayers
 
 		private void DrawMap(SpriteBatch sb)
 		{
-			//sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
-			sb.Begin();
+			sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, null, null);
 
 			for (int i = 0; i < this.destRects.Length; i++)
 			{

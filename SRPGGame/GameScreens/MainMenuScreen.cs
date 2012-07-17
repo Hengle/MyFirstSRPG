@@ -37,7 +37,7 @@ namespace MyFirstSRPG.SRPGGame.GameScreens
 
 			option.Action = () =>
 			{
-				this.ScreenManager.AddScreen(new SceneScreen(new Scene00()));
+				this.ScreenManager.AddScreen(new SceneScreen(new Scene01()));
 				this.Exit();
 			};
 

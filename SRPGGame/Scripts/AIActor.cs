@@ -21,8 +21,16 @@ namespace MyFirstSRPG.SRPGGame
 		public SceneActor TargetActor;
 		public AIStatus AIStatus;
 
-		public AIActor(Actor actor)
-			: base(actor, Point.Zero)
+		public AIActor(int id, string name, int classID, int lv, Point faceLocation)
+			: this(id, name, classID, lv, 0, new ActorAttributes(), null, faceLocation)
+		{ }
+
+		public AIActor(int id, string name, int classID, int lv, int exp, int hp, int str, int mag, int skl, int spd, int luk, int def, int bld, int[] perkIDs, Point faceLocation)
+			: this(id, name, classID, lv, exp, new ActorAttributes(hp, str, mag, skl, spd, luk, def, bld), perkIDs, faceLocation)
+		{ }
+
+		public AIActor(int id, string name, int classID, int lv, int exp, ActorAttributes basics, int[] perkIDs, Point faceLocation)
+			: base(id, name, classID, lv, exp, basics, perkIDs, faceLocation)
 		{
 			this.AIStatus = AIStatus.Idle;
 		}
@@ -105,12 +113,31 @@ namespace MyFirstSRPG.SRPGGame
 		{
 			if (this.TargetMapPoint.HasValue)
 			{
-				this.Move(this.TargetMapPoint.Value, () => this.EndAI());
+				this.Approach(this.TargetMapPoint.Value, () => this.EndAI());
 			}
 			else
 			{
 				this.EndAI();
 			}
+		}
+
+		private void Approach(Point destMapPoint, Action actionOnMoved = null)
+		{
+			this.Approach(this.MapPoint, destMapPoint, actionOnMoved);
+		}
+
+		private void Approach(Point srcMapPoint, Point destMapPoint, Action actionOnMoved = null)
+		{
+			if (this.Status == ActorStatus.Move)
+			{
+				return;
+			}
+
+			this.Visible = true;
+			this.LastMapPoint = this.MapPoint = srcMapPoint;
+			this.MoveTracks = GameMain.GetApproachTracks(this.MapPoint, destMapPoint, this.ActualMOV);
+			this.ActionOnMoved = actionOnMoved;
+			this.StateManager.ChangeState(ActorStatus.Move);
 		}
 
 		private void StartCombat(AIActor attacker, SceneActor defender)

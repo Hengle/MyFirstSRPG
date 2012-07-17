@@ -284,6 +284,8 @@ namespace MyFirstSRPG.SRPGGame.Components.MapScreenLayers
 						else
 						{
 							this.GameObject.SelectedActor = actor;
+							this.GameObject.MoveRange = GameMain.GetMoveRange(actor.MapPoint, actor.ActualMOV);
+							this.GameObject.AttackRange = GameMain.GetAttackRange(this.GameObject.MoveRange, actor.WeaponRanges);
 
 							switch (actor.Faction)
 							{

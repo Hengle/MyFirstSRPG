@@ -252,6 +252,11 @@ namespace MyFirstSRPG.SRPGGame
 			return PathFinder.GetMoveTracks(startPoint, endPoint, mov);
 		}
 
+		public static Point[] GetApproachTracks(Point startPoint, Point endPoint, int mov = -1)
+		{
+			return PathFinder.GetApproachTracks(startPoint, endPoint, mov);
+		}
+
 		#endregion
 	}
 }

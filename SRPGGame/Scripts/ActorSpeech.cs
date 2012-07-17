@@ -8,17 +8,17 @@ namespace MyFirstSRPG.SRPGGame
 
 		public string Text { get; private set; }
 
-		public bool IsPrimary { get; private set; }
+		public bool IsLeft { get; private set; }
 
 		public TimeSpan PauseTime { get; private set; }
 
-		public ActorSpeech(SceneActor actor, string text, bool isPrimary) : this(actor, text, isPrimary, 0.5f) { }
+		public ActorSpeech(SceneActor actor, string text, bool isLeft) : this(actor, text, isLeft, 0.5f) { }
 
-		public ActorSpeech(SceneActor actor, string text, bool isPrimary, float pauseSeconds)
+		public ActorSpeech(SceneActor actor, string text, bool isLeft, float pauseSeconds)
 		{
 			this.Actor = actor;
 			this.Text = text;
-			this.IsPrimary = isPrimary;
+			this.IsLeft = isLeft;
 			this.PauseTime = TimeSpan.FromSeconds(pauseSeconds);
 		}
 	}

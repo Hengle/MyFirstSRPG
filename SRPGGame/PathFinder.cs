@@ -331,6 +331,25 @@ namespace MyFirstSRPG.SRPGGameLibrary
 			return this.GetAttackRange(rangePoints, weaponRanges);
 		}
 
+		public PathPoint[] GetApproachTracks(PathPoint startPoint, PathPoint endPoint, int mov = -1)
+		{
+			PathPoint[] moveTracks = this.GetMoveTracks(startPoint, endPoint, mov);
+
+			if (moveTracks.Contains(endPoint))
+			{
+				return moveTracks.Take(moveTracks.Length - 1).ToArray();
+			}
+
+			return moveTracks;
+		}
+
+		public Point[] GetApproachTracks(Point startMapPoint, Point endMapPoint, int mov = -1)
+		{
+			PathPoint startPoint = this.GetPathPoint(startMapPoint.X, startMapPoint.Y);
+			PathPoint endPoint = this.GetPathPoint(endMapPoint.X, endMapPoint.Y);
+			return this.GetApproachTracks(startPoint, endPoint, mov).Select(p => new Point(p.X, p.Y)).ToArray();
+		}
+
 		#endregion public
 	}
 

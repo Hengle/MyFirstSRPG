@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MyFirstSRPG.SRPGGame.States;
 using MyFirstSRPG.SRPGGameLibrary;
+using MyFirstSRPG.SRPGGame.Actions;
 
 namespace MyFirstSRPG.SRPGGame.GameScreens.SceneScreens
 {
@@ -40,6 +41,8 @@ namespace MyFirstSRPG.SRPGGame.GameScreens.SceneScreens
 		private AllyPhaseState allyPhase;
 		private EventPhaseState eventPhase;
 		private Dictionary<Point, SceneActor> actorsOnMap;
+		private SceneDialogueScreen dialogScreen;
+		private Queue<ActionBase> actionQueue;
 
 		public SceneScreen(SceneScript script)
 		{
@@ -55,6 +58,8 @@ namespace MyFirstSRPG.SRPGGame.GameScreens.SceneScreens
 			this.stateManager.AddState(this.eventPhase = new EventPhaseState(this));
 			this.actorsOnMap = new Dictionary<Point, SceneActor>();
 			this.Actors = new List<SceneActor>();
+			this.dialogScreen = new SceneDialogueScreen(this);
+			this.actionQueue = new Queue<ActionBase>();
 
 			GameMain.PathFinder.SetPathPoints(this.Terrains);
 		}
@@ -81,7 +86,7 @@ namespace MyFirstSRPG.SRPGGame.GameScreens.SceneScreens
 			this.stateManager.Update(gameTime);
 		}
 
-		private void AddActorInternal(SceneActor actor)
+		public void AddActor(SceneActor actor)
 		{
 			if (!this.Actors.Contains(actor))
 			{
@@ -167,49 +172,73 @@ namespace MyFirstSRPG.SRPGGame.GameScreens.SceneScreens
 			}
 		}
 
-		public void AddActionPause(double pauseMS)
+		public void AddAction(ActionBase action)
 		{
-			this.AddDelayAction(null, pauseMS);
+			this.actionQueue.Enqueue(action);
 		}
 
-		public void AddDelayAction(Action action, double pauseMS = 0d)
+		public void StartDialogue(IEnumerable<ActorSpeech> speeches)
 		{
-			this.eventPhase.AddDelayAction(action, pauseMS);
-		}
-
-		public void AddActionLoadActor(SceneActor actor, double pauseMS = 0d)
-		{
-			actor.LoadContent();
-			this.AddDelayAction(() => this.AddActorInternal(actor), pauseMS);
-		}
-
-		public void AddActionUnLoadActor(SceneActor actor, double pauseMS = 0d)
-		{
-			this.AddDelayAction(() => this.RemoveActor(actor), pauseMS);
-		}
-
-		public void AddActionMoveActor(SceneActor actor, Point destMapPoint, double pauseMS = 0d)
-		{
-			this.AddDelayAction(delegate()
+			foreach (var speech in speeches)
 			{
-				actor.Move(destMapPoint);
-				this.MoveActor(actor, destMapPoint);
-			}, pauseMS);
-		}
+				this.dialogScreen.AddSpeech(speech);
+			}
 
-		public void AddActionMoveActor(SceneActor actor, Point srcMapPoint, Point destMapPoint, double pauseMS = 0d)
-		{
-			this.AddDelayAction(delegate()
+			if (this.dialogScreen.SpeechQuene.Count == 0)
 			{
-				actor.Move(srcMapPoint, destMapPoint);
-				this.MoveActor(actor, destMapPoint);
-			}, pauseMS);
+				return;
+			}
+
+			if (this.dialogScreen.Status == ScreenStatus.Hidden)
+			{
+				this.dialogScreen.Status = ScreenStatus.TransitionOn;
+				this.ScreenManager.AddScreen(this.dialogScreen);
+			}
 		}
 
-		public void AddActionSpeech(SceneActor actor, string text, bool isPrimary, float pauseMS = 0.5f)
-		{
-			this.eventPhase.AddSpeech(actor, text, isPrimary, pauseMS);
-		}
+		//public void AddActionPause(double pauseMS)
+		//{
+		//    this.AddAction(null, pauseMS);
+		//}
+
+		//public void AddAction(Action action, double pauseMS = 0d)
+		//{
+		//    this.eventPhase.AddAction(action, pauseMS);
+		//}
+
+		//public void AddActionLoadActor(SceneActor actor, double pauseMS = 0d)
+		//{
+		//    actor.LoadContent();
+		//    this.AddAction(() => this.AddActor(actor), pauseMS);
+		//}
+
+		//public void AddActionUnLoadActor(SceneActor actor, double pauseMS = 0d)
+		//{
+		//    this.AddAction(() => this.RemoveActor(actor), pauseMS);
+		//}
+
+		//public void AddActionMoveActor(SceneActor actor, Point destMapPoint, double pauseMS = 0d)
+		//{
+		//    this.AddAction(delegate()
+		//    {
+		//        actor.Move(destMapPoint);
+		//        this.MoveActor(actor, destMapPoint);
+		//    }, pauseMS);
+		//}
+
+		//public void AddActionMoveActor(SceneActor actor, Point srcMapPoint, Point destMapPoint, double pauseMS = 0d)
+		//{
+		//    this.AddAction(delegate()
+		//    {
+		//        actor.Move(srcMapPoint, destMapPoint);
+		//        this.MoveActor(actor, destMapPoint);
+		//    }, pauseMS);
+		//}
+
+		//public void AddActionSpeech(SceneActor actor, string text, bool isPrimary, float pauseMS = 0.5f)
+		//{
+		//    this.eventPhase.AddSpeech(actor, text, isPrimary, pauseMS);
+		//}
 
 		#region states
 
@@ -303,64 +332,32 @@ namespace MyFirstSRPG.SRPGGame.GameScreens.SceneScreens
 
 		private class EventPhaseState : PhaseState
 		{
-			private SceneDialogScreen dialogScreen;
-			private Queue<DelayedAction> delayedActionQueue;
-			private TimeSpan delayTime;
+			private TimeSpan elapsedTime;
 
 			public EventPhaseState(SceneScreen gameObject)
 				: base(gameObject, TurnPhase.EventPhase)
 			{
-				this.dialogScreen = new SceneDialogScreen(this.GameObject);
-				this.delayedActionQueue = new Queue<DelayedAction>();
 			}
 
 			public override void Update(GameTime gameTime)
 			{
-				if (this.dialogScreen.Status != ScreenStatus.Hidden)
+				if (this.GameObject.dialogScreen.Status != ScreenStatus.Hidden)
 				{
 					return;
 				}
 
-				if (this.delayedActionQueue.Count > 0)
+				if (this.GameObject.actionQueue.Count > 0)
 				{
-					DelayedAction da = this.delayedActionQueue.Peek();
-					this.delayTime += gameTime.ElapsedGameTime;
+					var action = this.GameObject.actionQueue.Peek();
 
-					if (this.delayTime >= da.DelayTime)
+					if(action.Complete)
 					{
-						if (da.Action != null)
-						{
-							da.Action();
-						}
-
-						this.delayedActionQueue.Dequeue();
-						this.delayTime = TimeSpan.Zero;
+						this.GameObject.actionQueue.Dequeue();
 					}
-				}
-			}
-
-			public void AddDelayAction(Action action, double pauseMS = 0d)
-			{
-				this.delayedActionQueue.Enqueue(new DelayedAction(TimeSpan.FromMilliseconds(pauseMS), action));
-			}
-
-			public void AddSpeech(SceneActor actor, string text, bool isPrimary, float pauseMS = 0.5f)
-			{
-				this.dialogScreen.AddSpeech(new ActorSpeech(actor, text, isPrimary, pauseMS));
-				this.AddDelayAction(() => this.StartDialog());
-			}
-
-			private void StartDialog()
-			{
-				if (this.dialogScreen.SpeechQuene.Count == 0)
-				{
-					return;
-				}
-
-				if (this.dialogScreen.Status == ScreenStatus.Hidden)
-				{
-					this.dialogScreen.Status = ScreenStatus.TransitionOn;
-					this.GameObject.ScreenManager.AddScreen(this.dialogScreen);
+					else
+					{
+						action.Update(gameTime);
+					}
 				}
 			}
 		}

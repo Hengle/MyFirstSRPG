@@ -116,14 +116,14 @@
     <Compile Include="Scripts\ActorSpeech.cs" />
     <Compile Include="GameScreens\SceneScreens\MapScreen.cs" />
     <Compile Include="GameScreens\SceneScreens\PopupMenuScreen.cs" />
-    <Compile Include="GameScreens\SceneScreens\SceneDialogScreen.cs" />
+    <Compile Include="GameScreens\SceneScreens\SceneDialogueScreen.cs" />
     <Compile Include="GameScreens\SceneScreens\SceneTitleScreen.cs" />
     <Compile Include="PathFinder.cs" />
     <Compile Include="Scripts\AIActor.cs" />
     <Compile Include="Scripts\Scene00.cs" />
     <Compile Include="Scripts\Scene01.cs" />
     <Compile Include="Scripts\SceneActor.cs" />
-    <Compile Include="Scripts\DelayedAction.cs" />
+    <Compile Include="Actions\ActionBase.cs" />
     <Compile Include="Scripts\SceneScript.cs" />
     <Compile Include="GameScreens\SLMenuScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
